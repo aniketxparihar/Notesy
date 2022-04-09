@@ -5,7 +5,7 @@ const Landing = () => {
   return (
     <div className="landing__page__container">
       <div className="landing__page--text">
-        <div className="landing__page__logo--text">Notesy</div>
+        <div className="landing__page__logo--text">Notesy✒️</div>
         <div className="landing__page__heading">
           <div className="landing__page__heading--text">Take Notes,</div>
           <div className="landing__page__heading--text">The Modern Way</div>
@@ -24,7 +24,7 @@ const Landing = () => {
         </div>
       </div>
       <div className="landing__page--image">
-        <img src={landing} alt=""className="image--pen" />
+        <img src={landing} alt="" className="image--pen" />
       </div>
     </div>
   );
