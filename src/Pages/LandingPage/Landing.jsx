@@ -1,6 +1,7 @@
 import React from 'react';
 import "./LandingPage.css";
-import landing from "../../assets/images/landing.png"
+import landing from "../../assets/images/landing.png";
+import { Link } from 'react-router-dom';
 const Landing = () => {
   return (
     <div className="landing__page__container">
@@ -15,11 +16,11 @@ const Landing = () => {
         </div>
 
         <div className="landing__page__auth">
-          <div className="landing__page--login button  p-4 txt-2xl txt-bold bg--success rounded-m">
+          <Link to="/" className="landing__page--login button  p-4 txt-2xl txt-bold bg--success rounded-m">
             Get Started
-          </div>
+          </Link>
           <div className="landing__page--signup">
-            Don't have an account? <span className="signup"> Signup</span>
+            Don't have an account? <Link to="/signup" className="signup"> Signup</Link>
           </div>
         </div>
       </div>
