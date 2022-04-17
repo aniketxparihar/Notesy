@@ -1,0 +1,55 @@
+.filter__container{
+    display: flex;
+    width: max-content;
+    justify-content: center;
+    position: relative;
+    margin:2rem 0rem;
+    z-index:10;
+}
+.filter-input{
+    font-size: 1.5rem;
+    width:30rem;
+    padding:1rem;
+    border-radius:8px;
+    height:5rem;
+    border:1px solid var(--gray-700);
+}
+.sort{
+    padding:1rem;
+    width:max-content;
+    border-radius: 8px;
+    margin-left:1rem;
+    height:5rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.sort__container{
+    height: max-content;
+    width:100%;
+    display: flex;
+    flex-direction:column;
+    height: max-content;
+    padding:2rem;
+    border-radius: 8px;
+    position: absolute;
+    top:6rem;
+    right:0rem;
+    border:1px solid var(--gray-400)
+}
+.sort--priority,.sort--date{
+    display: flex;
+    flex-direction: column;
+}
+.sort__row{
+display: flex;
+justify-content: center;
+}
+.sort__label{
+    margin-left:1rem;
+    font-size: 1.5rem;
+}
+.sort__heading{
+    font-size: 1.5rem;
+    margin:1rem 0rem;
+}
