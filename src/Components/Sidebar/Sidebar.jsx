@@ -37,7 +37,7 @@ const Sidebar = () => {
           <div className="sidebar__link--text">Labels</div>
         </NavLink>
         <NavLink
-          to="/archive"
+          to="/archives"
           className="sidebar__link"
           style={({ isActive }) => {
             return {

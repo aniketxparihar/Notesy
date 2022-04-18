@@ -8,6 +8,7 @@ const NotesProvider = (props) => {
     const [notes, setNotes] = useState([]);
     const [filteredNotes, setFilteredNotes] = useState([]);
     const [newNoteRender, setNewNoteRender] = useState(true);
+    const [archiveNoteRender, setArchiveNoteRender] = useState(true);
     const [prioritySort, setPrioritySort] = useState("");
     const [dateSort, setDateSort] = useState("");
     const [searchSort, setSearchSort] = useState("");
@@ -78,6 +79,38 @@ const NotesProvider = (props) => {
             console.log(err);
         }
     }
+    const archiveNoteRestoreHandler = async (_id) => {
+        try {
+            const response = await axios.post(`/api/archives/restore/${_id}`, {},{
+                    headers: {
+                        authorization: authToken,
+                    }
+                }
+            )
+            setNewNoteRender(!newNoteRender);
+            setArchiveNoteRender(!archiveNoteRender);
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+    const archiveNoteDeleteHandler = async (_id) => {
+        try {
+            const response = await axios.delete(`/api/archives/delete/${_id}`,
+                {
+                    headers: {
+                        authorization: authToken,
+                    }
+                }
+            )
+            setNewNoteRender(!newNoteRender);
+            setArchiveNoteRender(!archiveNoteRender);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
     const deleteNoteHandler = async (_id) => {
         try {
 
@@ -96,7 +129,7 @@ const NotesProvider = (props) => {
     }
     
     return (
-        <NotesContext.Provider value={{ archiveNoteHandler, addNoteHandler,deleteNoteHandler,editNoteHandler,notes,setNotes,filteredNotes,setFilteredNotes,setPrioritySort,prioritySort,dateSort,setDateSort,searchSort,setSearchSort,tagSort,setTagSort,noteFormVisible,setNoteFormVisible }}>
+        <NotesContext.Provider value={{ archiveNoteHandler, addNoteHandler,deleteNoteHandler,editNoteHandler,notes,setNotes,filteredNotes,setFilteredNotes,setPrioritySort,prioritySort,dateSort,setDateSort,searchSort,setSearchSort,tagSort,setTagSort,noteFormVisible,setNoteFormVisible,archiveNoteDeleteHandler,archiveNoteRestoreHandler,archiveNoteRender }}>
             {props.children}
         </NotesContext.Provider>
     )

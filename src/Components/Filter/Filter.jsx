@@ -126,7 +126,7 @@ const Filter = () => {
               name="prioritySort"
               id="high-priority-sort"
               checked={prioritySort === "high-priority"}
-              onClick={() => setPrioritySort("high-priority")}
+              onChange={() => setPrioritySort("high-priority")}
             />
             <label
               className="sort__label"
@@ -145,7 +145,7 @@ const Filter = () => {
               name="prioritySort"
               id="medium-priority-sort"
               checked={prioritySort === "medium-priority"}
-              onClick={() => setPrioritySort("medium-priority")}
+              onChange={() => setPrioritySort("medium-priority")}
             />
             <label
               className="sort__label"
@@ -165,7 +165,7 @@ const Filter = () => {
               name="prioritySort"
               id="low-priority-sort"
               checked={prioritySort === "low-priority"}
-              onClick={() => setPrioritySort("low-priority")}
+              onChange={() => setPrioritySort("low-priority")}
             />
             <label
               className="sort__label"
@@ -222,7 +222,7 @@ const Filter = () => {
           {notes.map((note) => {
             return note.label.map((label) => {
               return (
-                <div>
+                <div key={note.label.indexOf(label)}>
                   {
                     <div className="sort_row">
                       <input

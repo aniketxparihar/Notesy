@@ -32,9 +32,7 @@ const NoteCard = ({ data }) => {
   const setPinnedHandler = () => {
     editNoteHandler({...data,pinned:!data.pinned})
   }
-  useEffect(() => {
-    console.log(priorityValue,"Priority")
-  },[priorityValue])
+  
   return (
     <div
       className="note-card__container relative"
@@ -92,6 +90,7 @@ const NoteCard = ({ data }) => {
                 color: themeObject.text,
                 backgroundColor: themeObject.primary,
               }}
+              key={data.label.indexOf(label)}
             >
               {label}
               <div
@@ -119,7 +118,7 @@ const NoteCard = ({ data }) => {
       <input
         id="new-note-card__title"
         className="new-note-card__title"
-        Value={title}
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
         style={{ display: edit ? "block" : "none" }}
       />
@@ -278,7 +277,7 @@ const NoteCard = ({ data }) => {
               id="low-priority"
               value="low-priority"
               checked={priorityValue === "low-priority"}
-              onClick={(e) => setPriorityValue(e.target.value)}
+              onChange={(e) => setPriorityValue(e.target.value)}
             />
             <label
               className="priority__label"
