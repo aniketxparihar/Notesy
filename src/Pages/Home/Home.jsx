@@ -42,11 +42,11 @@ const Home = () => {
           <div className="notes__grid">
             {prioritySort !== "" || searchSort !== "" || tagSort !== ""
               ? filteredNotes.map((note) => {
-                  if (note.pinned === true) return <NoteCard data={note} />;
+                  if (note.pinned === true) return <NoteCard key={note._id} data={note} />;
                 })
               : notes.length > 0
               ? notes.map((note) => {
-                  if (note.pinned === true) return <NoteCard data={note} />;
+                  if (note.pinned === true) return <NoteCard key={note._id} data={note} />;
                 })
               : null}
             <div className="txt-4xl" style={{ color: themeObject.text }}>
@@ -75,11 +75,11 @@ const Home = () => {
           <div className="notes__grid">
             {prioritySort !== "" || searchSort !== "" || tagSort !== ""
               ? filteredNotes.map((note) => {
-                  if (note.pinned === false) return <NoteCard data={note} />;
+                  if (note.pinned === false) return <NoteCard key={note._id} data={note} />;
                 })
               : notes.length > 0
               ? notes.map((note) => {
-                  if (note.pinned === false) return <NoteCard data={note} />;
+                  if (note.pinned === false) return <NoteCard key={note._id}  data={note} />;
                 })
               : null}
           </div>
