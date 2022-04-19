@@ -7,6 +7,7 @@ import Home from './Pages/Home/Home';
 import Landing from './Pages/LandingPage/Landing';
 import AuthRoute from './Components/AuthRoute/AuthRoute';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import Trash from './Pages/Trash/Trash';
 const Routes = () => {
   return (
     <RoutesContainer>
@@ -14,8 +15,9 @@ const Routes = () => {
       <Route path="/" element={<App />}>
         <Route element={<PrivateRoute />}>
           <Route index element={<Home />} />
+          <Route path="/trash" element={<Trash />} />
         </Route>
-        <Route element={<AuthRoute/>}>
+        <Route element={<AuthRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Route>
