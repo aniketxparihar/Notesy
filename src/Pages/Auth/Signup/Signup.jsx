@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import { useAuth } from "../../../Context/Auth-Context";
 import { useTheme } from "../../../Context/Theme-Context";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
     const { signupHandler } = useAuth();
@@ -37,7 +38,17 @@ const Signup = () => {
         <header className="heading" style={{ color: themeObject.text }}>
           Signup
         </header>
-        <form onSubmit={(e) => { e.preventDefault(); signupHandler(state.firstName,state.lastName,state.email,state.password)}}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            signupHandler(
+              state.firstName,
+              state.lastName,
+              state.email,
+              state.password
+            );
+          }}
+        >
           <div className="first_name">
             <label
               htmlFor="first_name__input"
@@ -73,10 +84,7 @@ const Signup = () => {
             />
           </div>
           <div className="email">
-            <label
-              htmlFor="email__input"
-              style={{ color: themeObject.text }}
-            >
+            <label htmlFor="email__input" style={{ color: themeObject.text }}>
               Email Address
             </label>
             <input
@@ -140,6 +148,13 @@ const Signup = () => {
               state.password === ""
             }
           />
+          <div className="noaccount" style={{ color: themeObject.text }}>
+           Already have an account?
+            <Link to="/login" className="txt-4xl txt-yellow-400">
+              {" "}
+              Login
+            </Link>
+          </div>
         </form>
       </div>
     </div>

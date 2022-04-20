@@ -4,9 +4,9 @@ const defaultValue = {};
 const AuthContext = createContext(defaultValue);
 const AuthProvider = (props) => {
     useEffect(() => {
-        if(localStorage.getItem("user")!==null){
+        if (localStorage.getItem("user") !== null) {
             tokenHandler(JSON.parse(localStorage.getItem("user")).encodedToken);
-            userHandler(JSON.parse(localStorage.getItem("user")).user)
+            userHandler(JSON.parse(localStorage.getItem("user")).foundUser)
         }
     }, []);
 
@@ -28,7 +28,7 @@ const AuthProvider = (props) => {
                 password
             });
             if (response.status === 200) {
-                userHandler(response.data.user);
+                userHandler(response.data.foundUser);
                 tokenHandler(response.data.encodedToken);
                 if(rememberMe===true)
                 localStorage.setItem("user", JSON.stringify(response.data));}
@@ -38,7 +38,7 @@ const AuthProvider = (props) => {
         }
         
     }
-
+    
     const signupHandler = async (firstName, lastName, email, password) => {
         try {
             const response = await axios.post("/api/auth/signup", {
@@ -60,7 +60,7 @@ const AuthProvider = (props) => {
     }
 
     return (
-        <AuthContext.Provider value={{ authToken, user,loginHandler,signupHandler }} >
+        <AuthContext.Provider value={{ authToken, user,loginHandler,signupHandler,tokenHandler }} >
             {props.children}
         </AuthContext.Provider>
             

@@ -7,7 +7,7 @@ const NoteCard = ({ data }) => {
   const { themeObject } = useTheme();
   const [color, setColor] = useState(data.color);
   const [palleteVisible, setPalleteVisible] = useState("none");
-  const { archiveNoteHandler, deleteNoteHandler, editNoteHandler } = useNotes();
+  const { archiveNoteHandler, deleteNoteHandler, editNoteHandler,labelNotes } = useNotes();
   const [title, setTitle] = useState(data.title);
   const [body, setBody] = useState(data.body);
   const [label, setLabel] = useState("");
@@ -16,11 +16,16 @@ const NoteCard = ({ data }) => {
   const [priorityVisible, setPriorityVisible] = useState(false);
   const [pinned, setPinned] = useState(false);
   const [priorityValue, setPriorityValue] = useState("");
+ 
   const setColorHandler = (newColor) => {
     editNoteHandler({...data,color:newColor});
   }
   const setLabelHandler = () => {
-       editNoteHandler({...data,label:data.label.concat(label)});
+    if(data.label.includes(label)===false)
+      editNoteHandler({ ...data, label: data.label.concat(label) });
+    else {
+     return
+    }
     
   }
   const setPriorityHandler = () => {

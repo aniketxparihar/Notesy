@@ -18,11 +18,10 @@ const Login = () => {
   };
 
   const [state, dispatch] = useReducer(loginReducerFunc, {
-    email: "",
-    password: "",
-    rememberMe: false,
+    email: "test@gmail.com",
+    password: "test",
+    rememberMe: true,
   });
-    console.log(state)
   return (
     <div
       className="login__container"
@@ -32,12 +31,14 @@ const Login = () => {
         <header className="heading" style={{ color: themeObject.text }}>
           Login
         </header>
-        <form onSubmit={(e) => { e.preventDefault(); loginHandler(state) }}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            loginHandler(state);
+          }}
+        >
           <div className="email">
-            <label
-              htmlFor="email__input"
-              style={{ color: themeObject.text }}
-            >
+            <label htmlFor="email__input" style={{ color: themeObject.text }}>
               Email Address
             </label>
             <input
@@ -69,12 +70,21 @@ const Login = () => {
           </div>
           <div className="footer">
             <div className="rememberMe__container">
-              <input type="checkbox" id="rememberMe" className="rememberMe" />
+              <input
+                type="checkbox"
+                id="rememberMe"
+                checked={state.rememberMe}
+                onChange={() => {
+                  dispatch({ type: "REMEMBER_ME" });
+                }}
+                className="rememberMe"
+              />
               <label
                 htmlFor="rememberMe"
                 style={{ color: themeObject.text }}
-                checked={state.rememberMe}
-                onClick={()=>{dispatch({type:"REMEMBER_ME"})}}
+                onClick={() => {
+                  dispatch({ type: "REMEMBER_ME" });
+                }}
               >
                 Remember Me
               </label>
@@ -85,10 +95,12 @@ const Login = () => {
             </Link>
           </div>
           <input type="submit" className="login__button" value="Login" />
+
           <div className="noaccount" style={{ color: themeObject.text }}>
             Don't have an account?
             <Link to="/signup" className="txt-4xl txt-yellow-400">
-                          {" "} Signup
+              {" "}
+              Signup
             </Link>
           </div>
         </form>
