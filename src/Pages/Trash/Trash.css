@@ -1,0 +1,27 @@
+.trash__container{
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-left: auto;
+}
+.trash__notes__container{
+    padding:10rem 0rem;
+    height: 100%;
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+}
+.trash__notes{
+    height:max-content;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.trash__heading{
+    font-size: 2rem;
+}

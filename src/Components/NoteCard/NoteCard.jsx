@@ -7,7 +7,8 @@ const NoteCard = ({ data }) => {
   const { themeObject } = useTheme();
   const [color, setColor] = useState(data.color);
   const [palleteVisible, setPalleteVisible] = useState("none");
-  const { archiveNoteHandler, deleteNoteHandler, editNoteHandler,labelNotes } = useNotes();
+
+  const { archiveNoteHandler, trashNoteHandler, editNoteHandler,labelNotes } = useNotes();
   const [title, setTitle] = useState(data.title);
   const [body, setBody] = useState(data.body);
   const [label, setLabel] = useState("");
@@ -311,7 +312,7 @@ const NoteCard = ({ data }) => {
         </div>
         <div
           className="note-card__metadata--delete material-icons"
-          onClick={() => deleteNoteHandler(data._id)}
+          onClick={() => trashNoteHandler(data)}
         >
           delete
         </div>

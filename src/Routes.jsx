@@ -10,6 +10,8 @@ import Archive from "./Pages/Archive/Archive";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Label from "./Pages/Label/Label";
 import Profile from "./Pages/Profile/Profile";
+import Trash from "./Pages/Trash/Trash";
+
 const Routes = () => {
   return (
     <RoutesContainer>
@@ -20,6 +22,7 @@ const Routes = () => {
           <Route path="/archives" element={<Archive />} />
           <Route path="/labels" element={<Label />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/trash" element={<Trash />} />
         </Route>
         <Route element={<AuthRoute />}>
           <Route path="/login" element={<Login />} />
