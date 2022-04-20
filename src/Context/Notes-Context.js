@@ -14,7 +14,7 @@ const NotesProvider = (props) => {
     const [searchSort, setSearchSort] = useState("");
     const [tagSort, setTagSort] = useState("");
     const [noteFormVisible, setNoteFormVisible] = useState("none");
-
+    const [trashedNotes, setTrashedNotes] = useState([]);
     useEffect(() => {
         (async () => {
             const response = await axios.get("/api/notes",
@@ -127,9 +127,79 @@ const NotesProvider = (props) => {
             console.log(err);
         }
     }
-    
+    const deleteTrashedNoteHandler = async (_id) => {
+        try {
+
+            const response = await axios.delete(`/api/trash/delete/${_id}`,
+                {
+                    headers: {
+                        authorization: authToken,
+                    }
+                }
+            )
+            setNewNoteRender(!newNoteRender);
+            if (response.status === 200)
+                setTrashedNotes(response.data.trash);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const getTrashNoteHandler = async () => {
+        try {
+            const response = await axios.get("/api/trash", {
+                headers: {
+                    authorization: authToken,
+                },
+            });
+            if (response.status === 200 && response.data.trash !== null)
+                setTrashedNotes(response.data.trash);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const trashNoteHandler = async (note) => {
+        try {
+
+            const response = await axios.post(`/api/notes/trash/${note._id}`,
+                {
+                    note
+                },
+                {
+                    headers: {
+                        authorization: authToken,
+                    }
+                }
+            )
+            setNewNoteRender(!newNoteRender);
+            getTrashNoteHandler()
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+    const recoverTrashNoteHandler = async (note) => {
+        try {
+
+            const response = await axios.post(`/api/trash/restore/${note._id}`,
+                {
+                },
+                {
+                    headers: {
+                        authorization: authToken,
+                    }
+                }
+            )
+            setNewNoteRender(!newNoteRender);
+            getTrashNoteHandler()
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
     return (
-        <NotesContext.Provider value={{ archiveNoteHandler, addNoteHandler,deleteNoteHandler,editNoteHandler,notes,setNotes,filteredNotes,setFilteredNotes,setPrioritySort,prioritySort,dateSort,setDateSort,searchSort,setSearchSort,tagSort,setTagSort,noteFormVisible,setNoteFormVisible,archiveNoteDeleteHandler,archiveNoteRestoreHandler,archiveNoteRender }}>
+        <NotesContext.Provider value={{ archiveNoteHandler, addNoteHandler, deleteNoteHandler, editNoteHandler, notes, setNotes, filteredNotes, setFilteredNotes, setPrioritySort, prioritySort, dateSort, setDateSort, searchSort, setSearchSort, tagSort, setTagSort, noteFormVisible, setNoteFormVisible, archiveNoteDeleteHandler, archiveNoteRestoreHandler, archiveNoteRender, getTrashNoteHandler, trashedNotes, trashNoteHandler, recoverTrashNoteHandler, deleteTrashedNoteHandler }}>
             {props.children}
         </NotesContext.Provider>
     )

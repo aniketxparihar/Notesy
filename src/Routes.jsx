@@ -8,6 +8,7 @@ import Landing from "./Pages/LandingPage/Landing";
 import AuthRoute from "./Components/AuthRoute/AuthRoute";
 import Archive from "./Pages/Archive/Archive";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import Trash from "./Pages/Trash/Trash";
 const Routes = () => {
   return (
     <RoutesContainer>
@@ -16,6 +17,7 @@ const Routes = () => {
         <Route element={<PrivateRoute />}>
           <Route index element={<Home />} />
           <Route path="/archives" element={<Archive />} />
+          <Route path="/trash" element={<Trash />} />
         </Route>
         <Route element={<AuthRoute />}>
           <Route path="/login" element={<Login />} />
