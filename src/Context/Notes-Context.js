@@ -14,7 +14,15 @@ const NotesProvider = (props) => {
     const [searchSort, setSearchSort] = useState("");
     const [tagSort, setTagSort] = useState("");
     const [noteFormVisible, setNoteFormVisible] = useState("none");
+    const [labelNotes, setLabelNotes] = useState([]);
+    useEffect(() => {
+        notes.map((note) => note.label.map((label) => {
+            setLabelNotes(labelNotes.concat(label))
+        }
+        ))
+    }, [notes]);
     const [trashedNotes, setTrashedNotes] = useState([]);
+
     useEffect(() => {
         (async () => {
             const response = await axios.get("/api/notes",
@@ -52,10 +60,9 @@ const NotesProvider = (props) => {
                         authorization: authToken,
                     }
                 }
-            )
-            console.log(response.data.notes, "This is the New Note")
+            );
             setNewNoteRender(!newNoteRender);
-        }
+        } 
         catch (err) {
             console.log(err);
         }
@@ -199,7 +206,7 @@ const NotesProvider = (props) => {
         }
     }
     return (
-        <NotesContext.Provider value={{ archiveNoteHandler, addNoteHandler, deleteNoteHandler, editNoteHandler, notes, setNotes, filteredNotes, setFilteredNotes, setPrioritySort, prioritySort, dateSort, setDateSort, searchSort, setSearchSort, tagSort, setTagSort, noteFormVisible, setNoteFormVisible, archiveNoteDeleteHandler, archiveNoteRestoreHandler, archiveNoteRender, getTrashNoteHandler, trashedNotes, trashNoteHandler, recoverTrashNoteHandler, deleteTrashedNoteHandler }}>
+        <NotesContext.Provider value={{ archiveNoteHandler, addNoteHandler, deleteNoteHandler, editNoteHandler, notes, setNotes, filteredNotes, setFilteredNotes, setPrioritySort, prioritySort, dateSort, setDateSort, searchSort, setSearchSort, tagSort, setTagSort, noteFormVisible, setNoteFormVisible, archiveNoteDeleteHandler, archiveNoteRestoreHandler, archiveNoteRender, getTrashNoteHandler, trashedNotes, trashNoteHandler, recoverTrashNoteHandler, deleteTrashedNoteHandler,labelNotes,setLabelNotes }}>
             {props.children}
         </NotesContext.Provider>
     )
