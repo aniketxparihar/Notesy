@@ -27,7 +27,7 @@ const Label = () => {
           ) : null}
           {uniqueLabelNotes.map((label) => {
             return (
-              <div key={label.id}>
+              <div key={label.id} className="label-notes-wrapper">
                 <div
                   className="label--type"
                   style={{
