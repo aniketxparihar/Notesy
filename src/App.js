@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
@@ -10,7 +11,10 @@ function App() {
         <Sidebar />
         <Outlet />
       </div>
-      
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
     </div>
   );
 }

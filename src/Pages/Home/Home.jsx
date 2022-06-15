@@ -16,6 +16,11 @@ const Home = () => {
       <div className="home__notes__container">
         <div className="home__add-new-note">
           <Filter />
+          {notes.length === 0 ? (
+            <h1 className="archive-empty" style={{ color: themeObject.text }}>
+              Nothing here yet 🗒...
+            </h1>
+          ) : null}
           <NewNoteCard />
         </div>
         <div className="home__notes--pinned">
@@ -42,11 +47,13 @@ const Home = () => {
           <div className="notes__grid">
             {prioritySort !== "" || searchSort !== "" || tagSort !== ""
               ? filteredNotes.map((note) => {
-                  if (note.pinned === true) return <NoteCard key={note._id} data={note} />;
+                  if (note.pinned === true)
+                    return <NoteCard key={note._id} data={note} />;
                 })
               : notes.length > 0
               ? notes.map((note) => {
-                  if (note.pinned === true) return <NoteCard key={note._id} data={note} />;
+                  if (note.pinned === true)
+                    return <NoteCard key={note._id} data={note} />;
                 })
               : null}
             <div className="txt-4xl" style={{ color: themeObject.text }}>
@@ -75,11 +82,13 @@ const Home = () => {
           <div className="notes__grid">
             {prioritySort !== "" || searchSort !== "" || tagSort !== ""
               ? filteredNotes.map((note) => {
-                  if (note.pinned === false) return <NoteCard key={note._id} data={note} />;
+                  if (note.pinned === false)
+                    return <NoteCard key={note._id} data={note} />;
                 })
               : notes.length > 0
               ? notes.map((note) => {
-                  if (note.pinned === false) return <NoteCard key={note._id}  data={note} />;
+                  if (note.pinned === false)
+                    return <NoteCard key={note._id} data={note} />;
                 })
               : null}
           </div>

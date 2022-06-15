@@ -40,6 +40,11 @@ const Archive = () => {
             return <ArchivedNoteCard key={note._id} data={note} />;
           })}
         </div>
+        {archivedNotes.length === 0 ? (
+          <h1 className="archive-empty" style={{ color: themeObject.text }}>
+            Nothing here yet 🗒...
+          </h1>
+        ) : null}
       </div>
     </div>
   );

@@ -8,7 +8,13 @@ const NoteCard = ({ data }) => {
   const [color, setColor] = useState(data.color);
   const [palleteVisible, setPalleteVisible] = useState("none");
 
-  const { archiveNoteHandler, trashNoteHandler, editNoteHandler,labelNotes } = useNotes();
+  const {
+    archiveNoteHandler,
+    trashNoteHandler,
+    editNoteHandler,
+    setRemovedLabel,
+    setLabelNotes
+  } = useNotes();
   const [title, setTitle] = useState(data.title);
   const [body, setBody] = useState(data.body);
   const [label, setLabel] = useState("");
@@ -33,7 +39,7 @@ const NoteCard = ({ data }) => {
     editNoteHandler({ ...data, priority: priorityValue });
   };
   const removeLabel = (currLabel) => {
-    editNoteHandler({...data,label:data.label.filter((value)=>value!==currLabel)})
+    editNoteHandler({ ...data, label: data.label.filter((value) => value !== currLabel) });
   }
   const setPinnedHandler = () => {
     editNoteHandler({...data,pinned:!data.pinned})
@@ -101,7 +107,9 @@ const NoteCard = ({ data }) => {
               {label}
               <div
                 className="remove__label material-icons pointer"
-                onClick={() => removeLabel(label)}
+                onClick={() => {
+                  setRemovedLabel(label); removeLabel(label); 
+                }}
                 style={{ marginLeft: "1rem" }}
               >
                 highlight_off
@@ -312,7 +320,7 @@ const NoteCard = ({ data }) => {
         </div>
         <div
           className="note-card__metadata--delete material-icons"
-          onClick={() => trashNoteHandler(data)}
+          onClick={() => { trashNoteHandler(data); setLabelNotes([]); }}
         >
           delete
         </div>

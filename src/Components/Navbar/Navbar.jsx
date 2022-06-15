@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Navbar.css";
 import { useTheme } from '../../Context/Theme-Context';
 import { useNotes } from '../../Context/Notes-Context';
 const Navbar = () => {
   const { theme, themeHandler, themeObject } = useTheme();
   const { setNoteFormVisible } = useNotes();
+  const navigate = useNavigate();
   return (
     <nav>
       <div
@@ -22,7 +23,7 @@ const Navbar = () => {
         <div className="nav__right">
           <div
             className="add-new-note button p-4 txt-2xl txt-bold bg-violet-500 rounded-m flex justify-center"
-            onClick={() => setNoteFormVisible("flex")}
+            onClick={() => { setNoteFormVisible("flex"); navigate("/")}}
           >
            New Note
           </div>

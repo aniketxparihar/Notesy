@@ -11,10 +11,12 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Label from "./Pages/Label/Label";
 import Profile from "./Pages/Profile/Profile";
 import Trash from "./Pages/Trash/Trash";
+import NotFound from "./Pages/NotFound/NotFound";
 
 const Routes = () => {
   return (
     <RoutesContainer>
+      <Route path="*" element={<NotFound />} />
       <Route path="/landing" element={<Landing />} />
       <Route path="/" element={<App />}>
         <Route element={<PrivateRoute />}>

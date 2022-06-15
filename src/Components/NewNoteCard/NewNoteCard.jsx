@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import "./NewNoteCard.css";
+import toast from "react-hot-toast";
+
 import { useTheme } from "../../Context/Theme-Context";
-import { useAuth } from "../../Context/Auth-Context";
-import axios from "axios";
+import "./NewNoteCard.css";
 import { useNotes } from "../../Context/Notes-Context";
+
+
 const NewNoteCard = () => {
   const { themeObject } = useTheme();
-  const { authToken } = useAuth();
   const [color, setColor] = useState("");
   const [palleteVisible, setPalleteVisible] = useState("none");
   const [title, setTitle] = useState("");
@@ -20,7 +21,8 @@ const NewNoteCard = () => {
   const addNewNoteHandler = async () => {
     try {
       setAllFieldsRequired("");
-      await addNoteHandler({title:title, body:body, label:labelArray.concat(label),priority:priority,pinned:false, color:color,date:`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/${date.getHours()}/${date.getMinutes()}/${date.getSeconds()}`})
+      await addNoteHandler({ title: title, body: body, label: labelArray.concat(label), priority: priority, pinned: false, color: color, date: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/${date.getHours()}/${date.getMinutes()}/${date.getSeconds()}` })
+      toast.success("New note added")
       discardNoteHandler();
     }
     catch (err) {
@@ -147,9 +149,10 @@ const NewNoteCard = () => {
             if (title !== "" && label !== "" && body !== "") {
             setLabelArray(labelArray.concat(label))
             addNewNoteHandler()
-            
             }
-            else setAllFieldsRequired("All Fields are Required*")
+            else {
+              setAllFieldsRequired("All Fields are Required*");
+            toast.error("Note couldn't be added");}
           }}
           className="button m-8 p-4 txt-2xl txt-bold  rounded-m flex justify-center align-center"
         >

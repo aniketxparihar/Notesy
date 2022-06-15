@@ -25,3 +25,7 @@
 .archive__heading{
     font-size: 2rem;
 }
+.archive-empty{
+    margin-top:10rem;
+    font-size: 3rem;;
+}

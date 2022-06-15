@@ -1,27 +1,22 @@
-import React, { useReducer, useEffect } from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../Context/Auth-Context";
 import { useTheme } from "../../../Context/Theme-Context";
 
 const Login = () => {
-  const {  loginHandler } = useAuth();
-    const { themeObject } = useTheme();
-  const loginReducerFunc = (state, action) => {
-    switch (action.type) {
-      case "EMAIL":
-        return { ...state, email: action.payload };
-      case "PASSWORD":
-        return { ...state, password: action.payload };
-      case "REMEMBER_ME":
-        return { ...state, rememberMe: !state.rememberMe };
-    }
-  };
+  const {loginHandler } = useAuth();
+   const { themeObject } = useTheme();
+ 
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const [state, dispatch] = useReducer(loginReducerFunc, {
-    email: "test@gmail.com",
-    password: "test",
-    rememberMe: true,
-  });
+  const testLoginHandler = () => {
+    setEmail("test@gmail.com");
+    setPassword("test");
+    setRememberMe(true);
+  };
   return (
     <div
       className="login__container"
@@ -34,7 +29,7 @@ const Login = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            loginHandler(state);
+              loginHandler({ email, password, rememberMe });
           }}
         >
           <div className="email">
@@ -45,10 +40,8 @@ const Login = () => {
               type="email"
               id="email__input"
               className="email__input txt-2xl "
-              value={state.email}
-              onChange={(e) =>
-                dispatch({ type: "EMAIL", payload: e.target.value })
-              }
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="password">
@@ -62,10 +55,8 @@ const Login = () => {
               type="password"
               id="password__input"
               className="password__input txt-2xl"
-              value={state.password}
-              onChange={(e) =>
-                dispatch({ type: "PASSWORD", payload: e.target.value })
-              }
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="footer">
@@ -73,33 +64,30 @@ const Login = () => {
               <input
                 type="checkbox"
                 id="rememberMe"
-                checked={state.rememberMe}
-                onChange={() => {
-                  dispatch({ type: "REMEMBER_ME" });
-                }}
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
                 className="rememberMe"
               />
-              <label
-                htmlFor="rememberMe"
-                style={{ color: themeObject.text }}
-                onClick={() => {
-                  dispatch({ type: "REMEMBER_ME" });
-                }}
-              >
+              <label htmlFor="rememberMe" style={{ color: themeObject.text }}>
                 Remember Me
               </label>
             </div>
 
-            <Link to="/forgotpassword" className="forgotPassword">
+            {/* <Link to="/forgotpassword" className="forgotPassword">
               Forgot Password
-            </Link>
+            </Link> */}
           </div>
           <input type="submit" className="login__button" value="Login" />
+          <input
+            type="submit"
+            className="login__button"
+            value="Login with Test Credentials"
+            onClick={testLoginHandler}
+          />
 
           <div className="noaccount" style={{ color: themeObject.text }}>
             Don't have an account?
             <Link to="/signup" className="txt-4xl txt-yellow-400">
-              {" "}
               Signup
             </Link>
           </div>

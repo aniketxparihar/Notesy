@@ -1,5 +1,8 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
+
+
 import { useAuth } from "./Auth-Context";
 
 const NotesContext = createContext();
@@ -15,12 +18,15 @@ const NotesProvider = (props) => {
     const [tagSort, setTagSort] = useState("");
     const [noteFormVisible, setNoteFormVisible] = useState("none");
     const [labelNotes, setLabelNotes] = useState([]);
+    const [removedLabel, setRemovedLabel] = useState("");
+    const [labelRender, setLabelRender] = useState(true);
     useEffect(() => {
         notes.map((note) => note.label.map((label) => {
-            setLabelNotes(labelNotes.concat(label))
+            setLabelNotes((prev)=>prev.concat(label).filter((currentLabel)=>currentLabel!==removedLabel))
         }
         ))
-    }, [notes]);
+    }, [notes, labelRender]);
+    
     const [trashedNotes, setTrashedNotes] = useState([]);
 
     useEffect(() => {
@@ -61,9 +67,13 @@ const NotesProvider = (props) => {
                     }
                 }
             );
+            toast.success("Note edited")
+            
             setNewNoteRender(!newNoteRender);
+            setLabelRender(!labelRender)
         } 
         catch (err) {
+            toast.error("Note couldn't be edited")
             console.log(err);
         }
     }
@@ -80,6 +90,7 @@ const NotesProvider = (props) => {
                     }
                 }
             )
+            toast.success("Note archived")
             setNewNoteRender(!newNoteRender);
         }
         catch (err) {
@@ -94,6 +105,7 @@ const NotesProvider = (props) => {
                     }
                 }
             )
+            toast.success("Note restored")
             setNewNoteRender(!newNoteRender);
             setArchiveNoteRender(!archiveNoteRender);
 
@@ -111,6 +123,7 @@ const NotesProvider = (props) => {
                     }
                 }
             )
+            toast.success("Note deleted")
             setNewNoteRender(!newNoteRender);
             setArchiveNoteRender(!archiveNoteRender);
         }
@@ -144,6 +157,7 @@ const NotesProvider = (props) => {
                     }
                 }
             )
+            toast.success("Note deleted")
             setNewNoteRender(!newNoteRender);
             if (response.status === 200)
                 setTrashedNotes(response.data.trash);
@@ -179,6 +193,7 @@ const NotesProvider = (props) => {
                     }
                 }
             )
+            toast.success("Note trashed")
             setNewNoteRender(!newNoteRender);
             getTrashNoteHandler()
         }
@@ -198,6 +213,7 @@ const NotesProvider = (props) => {
                     }
                 }
             )
+            toast.success("Note recovered")
             setNewNoteRender(!newNoteRender);
             getTrashNoteHandler()
         }
@@ -206,7 +222,7 @@ const NotesProvider = (props) => {
         }
     }
     return (
-        <NotesContext.Provider value={{ archiveNoteHandler, addNoteHandler, deleteNoteHandler, editNoteHandler, notes, setNotes, filteredNotes, setFilteredNotes, setPrioritySort, prioritySort, dateSort, setDateSort, searchSort, setSearchSort, tagSort, setTagSort, noteFormVisible, setNoteFormVisible, archiveNoteDeleteHandler, archiveNoteRestoreHandler, archiveNoteRender, getTrashNoteHandler, trashedNotes, trashNoteHandler, recoverTrashNoteHandler, deleteTrashedNoteHandler,labelNotes,setLabelNotes }}>
+        <NotesContext.Provider value={{ archiveNoteHandler, addNoteHandler, deleteNoteHandler, editNoteHandler, notes, setNotes, filteredNotes, setFilteredNotes, setPrioritySort, prioritySort, dateSort, setDateSort, searchSort, setSearchSort, tagSort, setTagSort, noteFormVisible, setNoteFormVisible, archiveNoteDeleteHandler, archiveNoteRestoreHandler, archiveNoteRender, getTrashNoteHandler, trashedNotes, trashNoteHandler, recoverTrashNoteHandler, deleteTrashedNoteHandler, labelNotes, setLabelNotes, setRemovedLabel }}>
             {props.children}
         </NotesContext.Provider>
     )

@@ -19,6 +19,11 @@ const Trash = () => {
           Trashed Notes
         </div>
         <div className="trash__notes">
+          {trashedNotes.length === 0 ? (
+            <h1 className="archive-empty" style={{ color: themeObject.text }}>
+              Nothing here yet 🗒...
+            </h1>
+          ) : null}
           {trashedNotes.map((note) => {
             return <DeletedNoteCard key={note._id} data={note} />;
           })}
